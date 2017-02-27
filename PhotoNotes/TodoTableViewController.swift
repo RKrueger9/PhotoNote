@@ -10,9 +10,6 @@ import UIKit
 
 class TodoTableViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
+    
 
 }
