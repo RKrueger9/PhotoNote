@@ -32,6 +32,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return folders.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[indexPath.row])
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         
