@@ -31,6 +31,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ImageViewControllerCell
         let image = images[indexPath.item]
         cell.CollectionCellLabel.text! = image.name
+        let path = getDocumentDirectory().appendingPathComponent(image.image)
+        cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)
         return cell
     }
     
@@ -67,7 +69,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
-    /*
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
         guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {return}
@@ -80,14 +82,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             try? jpegData.write(to: imagePath)
         }
         
-        let image = Image(name: "Unknown", image: imageName)
-        images.append(image)
+        let picture = Image(name: "Unknown", image: imageName)
+        images.append(picture)
         imageCollectionView?.reloadData()
         //save()
         
         dismiss(animated: true)
     }
-*/
+
     
     @IBAction func addImageCellOnTap(_ sender: UIBarButtonItem)
     {
@@ -107,7 +109,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             UIAlertAction in
             print("chosen camera")
             
-            /*
+            
              if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
              let imagePicker = UIImagePickerController()
              imagePicker.delegate = self
@@ -115,13 +117,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
              imagePicker.allowsEditing = false
              self.present(imagePicker, animated: true)
              }
-             */
+             /*
             if(UIImagePickerController.isSourceTypeAvailable(.camera))
             {
                 let picker = UIImagePickerController()
                 picker.sourceType = UIImagePickerControllerSourceType.camera
                 self.present(picker, animated: true)
             }
+            */
         }
         ac.addAction(cameraAction)
         ac.addAction(libraryAction)
