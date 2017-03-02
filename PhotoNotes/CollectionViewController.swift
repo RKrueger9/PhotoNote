@@ -14,10 +14,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     var images = [Image]()
+    let imagePicker = UIImagePickerController()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        imagePicker.delegate = self
         imageCollectionView.reloadData()
     }
     
@@ -90,6 +92,10 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         dismiss(animated: true)
     }
 
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func addImageCellOnTap(_ sender: UIBarButtonItem)
     {
@@ -109,22 +115,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             UIAlertAction in
             print("chosen camera")
             
-            
-             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-             let imagePicker = UIImagePickerController()
-             imagePicker.delegate = self
-             imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
-             imagePicker.allowsEditing = false
-             self.present(imagePicker, animated: true)
-             }
-             /*
-            if(UIImagePickerController.isSourceTypeAvailable(.camera))
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
             {
-                let picker = UIImagePickerController()
-                picker.sourceType = UIImagePickerControllerSourceType.camera
-                self.present(picker, animated: true)
+                
+                
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+                self.imagePicker.allowsEditing = false
+                self.present(imagePicker, animated: true, completion: nil)
             }
-            */
         }
         ac.addAction(cameraAction)
         ac.addAction(libraryAction)
