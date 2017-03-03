@@ -14,10 +14,13 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
     var images = [Image]()
+    let imagePicker = UIImagePickerController()
+    var selectedImage : UIImage
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        imagePicker.delegate = self
         imageCollectionView.reloadData()
     }
     
@@ -31,6 +34,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ImageViewControllerCell
         let image = images[indexPath.item]
         cell.CollectionCellLabel.text! = image.name
+        let path = getDocumentDirectory().appendingPathComponent(image.image)
+        cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)
         return cell
     }
     
@@ -80,14 +85,30 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             try? jpegData.write(to: imagePath)
         }
         
-        let image = Image(name: "Unknown", image: imageName)
-        images.append(image)
+        let picture = Image(name: "Unknown", image: imageName)
+        images.append(picture)
         imageCollectionView?.reloadData()
         //save()
         
         dismiss(animated: true)
     }
-*/
+ *
+    
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
+    {
+        dismiss(animated: true, completion: nil)
+    }
+ */
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        imagePicker.dismiss(animated: true){ () -> Void in
+            let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+
+        }
+    }
+
     
     @IBAction func addImageCellOnTap(_ sender: UIBarButtonItem)
     {
@@ -107,20 +128,13 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             UIAlertAction in
             print("chosen camera")
             
-            /*
-             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
-             let imagePicker = UIImagePickerController()
-             imagePicker.delegate = self
-             imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
-             imagePicker.allowsEditing = false
-             self.present(imagePicker, animated: true)
-             }
-             */
-            if(UIImagePickerController.isSourceTypeAvailable(.camera))
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
             {
-                let picker = UIImagePickerController()
-                picker.sourceType = UIImagePickerControllerSourceType.camera
-                self.present(picker, animated: true)
+                
+                
+                self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+                self.imagePicker.allowsEditing = false
+                self.present(self.imagePicker, animated: true, completion: nil)
             }
         }
         ac.addAction(cameraAction)
