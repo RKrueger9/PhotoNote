@@ -15,6 +15,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var images = [Image]()
     let imagePicker = UIImagePickerController()
+    var selectedImage : UIImage
     
     override func viewDidLoad()
     {
@@ -71,7 +72,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
-    
+    /*
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
         guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {return}
@@ -91,11 +92,23 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         dismiss(animated: true)
     }
+ *
+    
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
     {
         dismiss(animated: true, completion: nil)
     }
+ */
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+    {
+        imagePicker.dismiss(animated: true){ () -> Void in
+            let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+
+        }
+    }
+
     
     @IBAction func addImageCellOnTap(_ sender: UIBarButtonItem)
     {
@@ -121,7 +134,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                 
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
                 self.imagePicker.allowsEditing = false
-                self.present(imagePicker, animated: true, completion: nil)
+                self.present(self.imagePicker, animated: true, completion: nil)
             }
         }
         ac.addAction(cameraAction)
