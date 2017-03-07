@@ -15,13 +15,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var images = [Image]()
     let imagePicker = UIImagePickerController()
-    var selectedImage : UIImage
+   
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         imagePicker.delegate = self
         imageCollectionView.reloadData()
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -103,10 +104,10 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
-        imagePicker.dismiss(animated: true){ () -> Void in
-            let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-
-        }
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! Image//2
+       // myImageView.contentMode = .scaleAspectFit //3
+        images.append(chosenImage)
+        dismiss(animated:true, completion: nil) //5
     }
 
     
