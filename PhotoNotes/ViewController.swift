@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var folderTableView: UITableView!
     
-    var folders = ["0", "1", "2", "3", "4", "5", "6", "7"]         //changing later, int just for testing
+    var folders : [String : [Image]] = ["Work" : [], "Personal" : [], "Store" : []]
     
     override func viewDidLoad()
     {
@@ -34,12 +34,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[indexPath.row])
+        performSegue(withIdentifier: "toCollectionViewSegue", sender: folders.index(forKey: folders(indexPath)))
     }
-    
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        
+        let dvc = segue.destination as! CollectionViewController
+        let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row
+        dvc.image = folders[index!]
     }
+
+*/
+    
+    @IBAction func addNewFolderOnTap(_ sender: UIBarButtonItem)
+    {
+        let alert = UIAlertController(title: "Add Folder", message: nil, preferredStyle: .alert)
+        alert.addTextField { (textField) -> Void in
+            textField.placeholder = "Add Folder Here"
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        let addAction = UIAlertAction(title: "Add", style: .default) { (action) -> Void in
+            let folderTextField = alert.textFields![0] as UITextField
+            self.folders.append(folderTextField.text!)
+            self.folderTableView.reloadData()
+        }
+        alert.addAction(addAction);
+        self.present(alert, animated: true, completion: nil);
+    }
+    
 }
 

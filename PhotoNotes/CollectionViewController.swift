@@ -15,7 +15,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var images = [Image]()
     let imagePicker = UIImagePickerController()
-   
+    var image : Image!
     
     override func viewDidLoad()
     {
@@ -29,9 +29,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         {
             //converts data back to an object
             images = NSKeyedUnarchiver.unarchiveObject(with: savedImages) as! [Image]
-        }
-
-        
+        }        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
