@@ -173,22 +173,22 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="90T-iJ-Fbo">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="XMh-uL-Mhg" detailTextLabel="Hye-fr-qBD" style="IBUITableViewCellStyleSubtitle" id="7ge-qY-ERf">
-                                        <rect key="frame" x="0.0" y="92" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoCell" textLabel="XMh-uL-Mhg" detailTextLabel="Hye-fr-qBD" style="IBUITableViewCellStyleSubtitle" id="7ge-qY-ERf">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7ge-qY-ERf" id="THb-2W-Cwk">
-                                            <frame key="frameInset" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XMh-uL-Mhg">
-                                                    <frame key="frameInset" minX="15" minY="5" width="33.333333333333336" height="20.333333333333332"/>
+                                                    <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hye-fr-qBD">
-                                                    <frame key="frameInset" minX="14.999999999999996" minY="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
+                                                    <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
@@ -200,6 +200,11 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIV-Y0-bty">
+                                <rect key="frame" x="114" y="617" width="146" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="146" id="AcV-kA-j9l"/>
+                                    <constraint firstAttribute="height" constant="30" id="Ed5-1y-KJK"/>
+                                </constraints>
                                 <state key="normal" title="Add New Reminder?"/>
                                 <connections>
                                     <segue destination="Qro-fX-qKK" kind="show" id="oRZ-Bu-1kG"/>
@@ -212,9 +217,15 @@
                             <constraint firstItem="90T-iJ-Fbo" firstAttribute="top" secondItem="OM3-TL-7yz" secondAttribute="bottom" id="7YF-yP-p57"/>
                             <constraint firstItem="lIV-Y0-bty" firstAttribute="leading" secondItem="Dd6-jP-nUj" secondAttribute="leadingMargin" constant="98" id="M2I-8t-FBF"/>
                             <constraint firstItem="lIV-Y0-bty" firstAttribute="top" secondItem="90T-iJ-Fbo" secondAttribute="bottom" constant="8" id="OAc-LI-Ace"/>
+                            <constraint firstItem="lIV-Y0-bty" firstAttribute="top" secondItem="90T-iJ-Fbo" secondAttribute="bottom" constant="8" id="QAu-Yu-dXH"/>
+                            <constraint firstItem="lIV-Y0-bty" firstAttribute="top" secondItem="90T-iJ-Fbo" secondAttribute="bottom" constant="8" id="Sgr-OU-CeF"/>
                             <constraint firstItem="Tss-hq-AoZ" firstAttribute="top" secondItem="lIV-Y0-bty" secondAttribute="bottom" constant="20" id="Z0P-MG-E54"/>
                             <constraint firstItem="90T-iJ-Fbo" firstAttribute="leading" secondItem="Dd6-jP-nUj" secondAttribute="leading" id="ZWZ-FC-fVD"/>
+                            <constraint firstItem="Tss-hq-AoZ" firstAttribute="top" secondItem="lIV-Y0-bty" secondAttribute="bottom" constant="20" id="e7u-JE-VCy"/>
+                            <constraint firstAttribute="trailing" secondItem="90T-iJ-Fbo" secondAttribute="trailing" id="jtU-cy-CmS"/>
                             <constraint firstItem="lIV-Y0-bty" firstAttribute="top" secondItem="90T-iJ-Fbo" secondAttribute="bottom" constant="8" id="xrK-gc-rPh"/>
+                            <constraint firstItem="90T-iJ-Fbo" firstAttribute="top" secondItem="OM3-TL-7yz" secondAttribute="bottom" id="xyM-Bl-HzL"/>
+                            <constraint firstItem="90T-iJ-Fbo" firstAttribute="leading" secondItem="Dd6-jP-nUj" secondAttribute="leading" id="ziP-4j-xAG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lIV-Y0-bty" secondAttribute="trailing" constant="99" id="zog-Mb-lsU"/>
                         </constraints>
                     </view>
@@ -236,14 +247,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="umo-Ez-Ig1">
-                                <frame key="frameInset" minY="139" width="375" height="216"/>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="umo-Ez-Ig1">
+                                <rect key="frame" x="0.0" y="139" width="375" height="216"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="509557892.334001">
                                     <!--2017-02-23 15:51:32 +0000-->
                                 </date>
                             </datePicker>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t7J-xL-dNa">
-                                <frame key="frameInset" minX="42" minY="90" width="292" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What do you need to do?" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t7J-xL-dNa">
+                                <rect key="frame" x="42" y="90" width="292" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="292" id="58w-BY-hlu"/>
                                     <constraint firstAttribute="height" constant="30" id="i3H-DV-KlE"/>
@@ -253,7 +265,11 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKe-0d-Jo3">
-                                <frame key="frameInset" minX="165" minY="370" width="46" height="30"/>
+                                <rect key="frame" x="165" y="370" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="Atf-Wu-rYA"/>
+                                    <constraint firstAttribute="height" constant="30" id="Q1Y-ZX-Z6P"/>
+                                </constraints>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="savePressed:" destination="Qro-fX-qKK" eventType="touchUpInside" id="btK-Jc-TLr"/>
@@ -261,11 +277,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="t7J-xL-dNa" firstAttribute="top" secondItem="3DT-Su-Ro7" secondAttribute="bottom" constant="26" id="B1e-bg-eCX"/>
-                            <constraint firstItem="umo-Ez-Ig1" firstAttribute="top" secondItem="t7J-xL-dNa" secondAttribute="bottom" constant="19" id="Crp-iQ-bbI"/>
-                            <constraint firstItem="SKe-0d-Jo3" firstAttribute="top" secondItem="umo-Ez-Ig1" secondAttribute="bottom" constant="15" id="Udg-jH-oUd"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="deadlinePicker" destination="umo-Ez-Ig1" id="JBE-lo-5jU"/>
