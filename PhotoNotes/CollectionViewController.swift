@@ -23,6 +23,15 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         imagePicker.delegate = self
         imageCollectionView.reloadData()
         
+        let defaults = UserDefaults.standard
+        //pulls data from disk
+        if let savedImages = defaults.object(forKey: "image") as? Data
+        {
+            //converts data back to an object
+            images = NSKeyedUnarchiver.unarchiveObject(with: savedImages) as! [Image]
+        }
+
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -53,7 +62,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             image.name = newName.text!
             
             self.imageCollectionView?.reloadData()
-            //self.save()
+            self.save()
             
         })
         present(ac, animated: true)
@@ -73,7 +82,15 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
-    /*
+    
+    func save()
+    {
+        //NSKeyedArchive coverts our array into a data object
+        let saveData = NSKeyedArchiver.archivedData(withRootObject: images)
+        let defaults = UserDefaults.standard
+        defaults.set(saveData, forKey: "image")
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
         guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else {return}
@@ -86,28 +103,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             try? jpegData.write(to: imagePath)
         }
         
-        let picture = Image(name: "Unknown", image: imageName)
+        let picture = Image(name: "", image: imageName)
         images.append(picture)
-        imageCollectionView?.reloadData()
-        //save()
+        imageCollectionView!.reloadData()
+        save()
         
         dismiss(animated: true)
-    }
- *
-    
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
-    {
-        dismiss(animated: true, completion: nil)
-    }
- */
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
-    {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! Image//2
-       // myImageView.contentMode = .scaleAspectFit //3
-        images.append(chosenImage)
-        dismiss(animated:true, completion: nil) //5
     }
 
     
@@ -122,6 +123,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             UIAlertAction in
             self.addNewImage()
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel)
         
         //camera action
         let cameraAction = UIAlertAction(title: "Camera", style: UIAlertActionStyle.default)
@@ -140,6 +142,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         ac.addAction(cameraAction)
         ac.addAction(libraryAction)
+        ac.addAction(cancelAction)
         self.present(ac, animated: true)
     }
 
