@@ -13,9 +13,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var folderTableView: UITableView!
     
-    var folders : [String : [Image]] = ["Work" : [], "Personal" : [], "Store" : []]
+    var folders : [String] = ["Work", "Personal", "Store"]
    
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -36,7 +35,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "myCell")
         
-        cell.textLabel?.text = 
+        cell.textLabel?.text = folders[(indexPath as NSIndexPath).row]
         return cell
     }
     
@@ -44,12 +43,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     {
         return folders.count
     }
-    /*
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        performSegue(withIdentifier: "toCollectionViewSegue", sender: folders.index(forKey: folders(indexPath)))
+         performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[(indexPath as NSIndexPath).row])
     }
-    
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let dvc = segue.destination as! CollectionViewController
@@ -69,7 +68,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alert.addAction(cancelAction)
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) -> Void in
             let folderTextField = alert.textFields![0] as UITextField
-           // self.folders.append(folderTextField.text!)
+           self.folders.append(folderTextField.text!)
             self.folderTableView.reloadData()
         }
         alert.addAction(addAction);
