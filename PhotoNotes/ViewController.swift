@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     {
         super.viewDidLoad()
         
-    }
+    } // array of images inside the folder
     /*
     func keysForValue(value: Value) -> []
     {
