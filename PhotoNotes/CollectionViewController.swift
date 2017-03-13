@@ -13,6 +13,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
 
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
+    var folderName = String()
     var images = [Image]()
     let imagePicker = UIImagePickerController()
     var image : Image!
@@ -41,11 +42,13 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     {
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ImageViewControllerCell
         let image = images[indexPath.item]
+        if image.folder == folderName {
         cell.CollectionCellLabel.text! = image.name
         let path = getDocumentDirectory().appendingPathComponent(image.image)
-        cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)
+            cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)}
         return cell
-    }
+        }
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
@@ -101,7 +104,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             try? jpegData.write(to: imagePath)
         }
         
-        let picture = Image(name: "", image: imageName)
+        let picture = Image(name: "", image: imageName, folder: folderName)
         images.append(picture)
         imageCollectionView!.reloadData()
         save()

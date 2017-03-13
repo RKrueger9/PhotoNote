@@ -12,11 +12,13 @@ class Image: NSObject, NSCoding
 {
     var name : String
     var image : String
+    var folder : String
     
-    init(name: String , image: String)
+    init(name: String , image: String , folder: String)
     {
         self.name = name
         self.image = image
+        self.folder = folder
     }
     
     //initilizer is used for loading object of class
@@ -24,6 +26,7 @@ class Image: NSObject, NSCoding
     {
         name = aDecoder.decodeObject(forKey: "name") as! String
         image = aDecoder.decodeObject(forKey: "image") as! String
+        folder = aDecoder.decodeObject(forKey: "folder") as! String
     }
     
     //used for saving
@@ -31,6 +34,7 @@ class Image: NSObject, NSCoding
     {
         aCoder.encode(name,forKey: "name")
         aCoder.encode(image,forKey: "image")
+        aCoder.encode(folder, forKey: "folder")
         
     }
 

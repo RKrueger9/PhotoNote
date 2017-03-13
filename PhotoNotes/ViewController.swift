@@ -13,17 +13,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var folderTableView: UITableView!
     
-    var folders : [String : [Image]] = ["Work" : [], "Personal" : [], "Store" : []]
-    
+    var folders : [String] = ["Work", "Personal", "Store"]
+    var folderName = ""
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+    } // array of images inside the folder
+    /*
+    func keysForValue(value: Value) -> []
+    {
+        return flatMap
+        { (key: Key, val: Value) -> Key? in
+            value == val ? key : nil
+        }
     }
+ */
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "myCell")
+        
         cell.textLabel?.text = folders[(indexPath as NSIndexPath).row]
+        folderName = folders[(indexPath as NSIndexPath).row]
         return cell
     }
     
@@ -34,17 +47,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        performSegue(withIdentifier: "toCollectionViewSegue", sender: folders.index(forKey: folders(indexPath)))
+         performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[(indexPath as NSIndexPath).row])
     }
-    /*
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let dvc = segue.destination as! CollectionViewController
-        let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row
-        dvc.image = folders[index!]
+        //let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row.description
+        dvc.folderName = folderName
     }
 
-*/
+
     
     @IBAction func addNewFolderOnTap(_ sender: UIBarButtonItem)
     {
@@ -56,7 +69,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         alert.addAction(cancelAction)
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) -> Void in
             let folderTextField = alert.textFields![0] as UITextField
-            self.folders.append(folderTextField.text!)
+           self.folders.append(folderTextField.text!)
             self.folderTableView.reloadData()
         }
         alert.addAction(addAction);
