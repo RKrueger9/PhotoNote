@@ -47,14 +47,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        print(folderName)
          performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[(indexPath as NSIndexPath).row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
+        let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row
+        print(index!)
+
+        folderName = folders[index!]
         let dvc = segue.destination as! CollectionViewController
-        //let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row.description
-        dvc.folderName = folderName
+        //dvc.folderName = folderName
     }
 
 

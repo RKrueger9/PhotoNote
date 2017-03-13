@@ -13,14 +13,16 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
 
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
-    var folderName = String()
+    var folderName = ""
     var images = [Image]()
     let imagePicker = UIImagePickerController()
     var image : Image!
+
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        images.removeAll()
         imagePicker.delegate = self
         imageCollectionView.reloadData()
         
@@ -30,7 +32,9 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         {
             //converts data back to an object
             images = NSKeyedUnarchiver.unarchiveObject(with: savedImages) as! [Image]
-        }        
+            
+        }   
+ 
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -42,12 +46,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     {
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ImageViewControllerCell
         let image = images[indexPath.item]
-        if image.folder == folderName {
-        cell.CollectionCellLabel.text! = image.name
-        let path = getDocumentDirectory().appendingPathComponent(image.image)
-            cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)}
-        return cell
+        if image.folder == folderName
+        {
+            cell.CollectionCellLabel.text! = image.name
+            let path = getDocumentDirectory().appendingPathComponent(image.image)
+            cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)
         }
+        return cell
+    }
 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
@@ -61,7 +67,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
             let newName = ac.textFields![0]
             image.name = newName.text!
-            
             self.imageCollectionView?.reloadData()
             self.save()
             
@@ -91,6 +96,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let defaults = UserDefaults.standard
         defaults.set(saveData, forKey: "image")
     }
+ 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     {
@@ -134,8 +140,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
             {
-                
-                
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
                 self.imagePicker.allowsEditing = false
                 self.present(self.imagePicker, animated: true, completion: nil)

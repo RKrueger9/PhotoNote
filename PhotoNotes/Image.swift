@@ -10,9 +10,9 @@ import UIKit
 
 class Image: NSObject, NSCoding
 {
-    var name : String
-    var image : String
-    var folder : String
+    var name : String = ""
+    var image : String = ""
+    var folder : String = ""
     
     init(name: String , image: String , folder: String)
     {
