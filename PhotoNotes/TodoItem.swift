@@ -20,6 +20,6 @@ struct TodoItem {
     }
     
     var isOverdue: Bool {
-        return (Date().compare(self.deadline) == ComparisonResult.orderedDescending) // deadline is earlier than current date
+        return (Date().compare(self.deadline) == ComparisonResult.orderedDescending) 
     }
 }

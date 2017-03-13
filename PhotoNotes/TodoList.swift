@@ -39,7 +39,7 @@ class TodoList {
         let notification = UILocalNotification()
         notification.alertBody = "Todo Item \"\(item.title)\" Is Overdue" // text that will be displayed in the notification
         notification.alertAction = "open"
-        notification.fireDate = item.deadline as Date // todo item due date (when notification will be fired)
+        notification.fireDate = item.deadline as Date // todo item due date
         notification.soundName = UILocalNotificationDefaultSoundName // play default sound
         notification.userInfo = ["title": item.title, "UUID": item.UUID] // assign a unique identifier to the notification so that we can retrieve it later
         
