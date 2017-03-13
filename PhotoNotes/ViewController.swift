@@ -14,7 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var folderTableView: UITableView!
     
     var folders : [String] = ["Work", "Personal", "Store"]
-   
+    var folderName = ""
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -36,6 +36,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "myCell")
         
         cell.textLabel?.text = folders[(indexPath as NSIndexPath).row]
+        folderName = folders[(indexPath as NSIndexPath).row]
         return cell
     }
     
@@ -48,15 +49,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     {
          performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[(indexPath as NSIndexPath).row])
     }
-    /*
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let dvc = segue.destination as! CollectionViewController
-        let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row
-        dvc.image = folders[index!]
+        //let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row.description
+        dvc.folderName = folderName
     }
 
-*/
+
     
     @IBAction func addNewFolderOnTap(_ sender: UIBarButtonItem)
     {

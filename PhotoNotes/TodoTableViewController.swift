@@ -69,5 +69,5 @@ class TodoTableViewController: UITableViewController {
             self.navigationItem.rightBarButtonItem!.isEnabled = true // we definitely have under 64 notifications scheduled now, make sure 'add' button is enabled
         }
     }
-
+    
 }
