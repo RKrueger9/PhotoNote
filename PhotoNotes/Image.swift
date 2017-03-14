@@ -14,7 +14,7 @@ class Image: NSObject, NSCoding
     var image : String = ""
     var folder : String = ""
     
-    init(name: String , image: String , folder: String)
+    init(name: String , image: String, folder: String)
     {
         self.name = name
         self.image = image
@@ -35,7 +35,6 @@ class Image: NSObject, NSCoding
         aCoder.encode(name,forKey: "name")
         aCoder.encode(image,forKey: "image")
         aCoder.encode(folder, forKey: "folder")
-        
     }
 
 

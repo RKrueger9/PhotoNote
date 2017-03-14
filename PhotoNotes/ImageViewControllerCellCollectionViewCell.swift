@@ -12,4 +12,5 @@ class ImageViewControllerCell: UICollectionViewCell
 {
     @IBOutlet weak var collectionCellImageView: UIImageView!
     @IBOutlet weak var CollectionCellLabel: UILabel!
+    
 }

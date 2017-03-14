@@ -15,15 +15,17 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var folderName = ""
     var images = [Image]()
+    var imagesForFolder = [Image]()
     let imagePicker = UIImagePickerController()
     var image : Image!
+   
 
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        images.removeAll()
         imagePicker.delegate = self
+        imagesForFolder.removeAll()
         imageCollectionView.reloadData()
         
         let defaults = UserDefaults.standard
@@ -33,32 +35,31 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             //converts data back to an object
             images = NSKeyedUnarchiver.unarchiveObject(with: savedImages) as! [Image]
             
-        }   
- 
+        }
+        throughImagesArray()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return images.count
+        return imagesForFolder.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = imageCollectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! ImageViewControllerCell
-        let image = images[indexPath.item]
-        if image.folder == folderName
-        {
-            cell.CollectionCellLabel.text! = image.name
-            let path = getDocumentDirectory().appendingPathComponent(image.image)
-            cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)
-        }
+       let image = imagesForFolder[indexPath.item]
+        cell.CollectionCellLabel.text! = image.name
+        let path = getDocumentDirectory().appendingPathComponent(image.image)
+        cell.collectionCellImageView.image = UIImage(contentsOfFile: path.path)
+        
+        
         return cell
     }
 
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        let image = images[indexPath.row]
+        let image = imagesForFolder[indexPath.item]
         
         let ac = UIAlertController(title: "Add Text", message: nil, preferredStyle: .alert)
         ac.addTextField()
@@ -80,6 +81,18 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         picker.allowsEditing = true
         picker.delegate = self
         present(picker, animated: true)
+    }
+    
+    func throughImagesArray() //goes through images array and sorts out images based on folder name
+    {
+        for image in images
+        {
+            if image.folder == folderName
+            {
+                imagesForFolder.append(image)
+            }
+        }
+
     }
     
     func getDocumentDirectory() -> URL
@@ -112,6 +125,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         let picture = Image(name: "", image: imageName, folder: folderName)
         images.append(picture)
+        imagesForFolder.append(picture)
         imageCollectionView!.reloadData()
         save()
         
@@ -141,7 +155,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
             {
                 self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
-                self.imagePicker.allowsEditing = false
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
         }
@@ -150,7 +163,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         ac.addAction(cancelAction)
         self.present(ac, animated: true)
     }
-
 }
     
 

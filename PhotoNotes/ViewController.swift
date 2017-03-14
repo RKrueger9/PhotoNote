@@ -15,20 +15,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var folders : [String] = ["Work", "Personal", "Store"]
     var folderName = ""
+    var index = ""
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-    } // array of images inside the folder
-    /*
-    func keysForValue(value: Value) -> []
-    {
-        return flatMap
-        { (key: Key, val: Value) -> Key? in
-            value == val ? key : nil
-        }
     }
- */
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -36,7 +28,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "myCell")
         
         cell.textLabel?.text = folders[(indexPath as NSIndexPath).row]
-        folderName = folders[(indexPath as NSIndexPath).row]
+        
         return cell
     }
     
@@ -48,17 +40,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         print(folderName)
-         performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[(indexPath as NSIndexPath).row])
+        folderName = folders[(indexPath as NSIndexPath).row]
+
+        performSegue(withIdentifier: "toCollectionViewSegue", sender: folders[(indexPath as NSIndexPath).row])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        let index = (folderTableView.indexPathForSelectedRow as NSIndexPath?)?.row
-        print(index!)
-
-        folderName = folders[index!]
+        
         let dvc = segue.destination as! CollectionViewController
-        //dvc.folderName = folderName
+        dvc.folderName = folderName
     }
 
 
